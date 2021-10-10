@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tourist Voucher</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header">
+                <div class="header__name">My vouchers</div>
+                <div class="search">
+                    <input class="search__input" id="search__input" type="text"
+                        placeholder="Enter a country to visit" />
+                    <button class="search__button" id="search__button" type="button">Search</button>
+                    <button class="clear search__button" id="clear__search__button" type="button">Cancel</button>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="content">
+        <aside class="aside">
+
+            <form id="add_form">
+                <h2>Create voucher</h2>
+
+                <div class="item_form">
+                    <label for="country_input" class="form_label">Country</label>
+                    <input type="text" class="form_control" id="country_input" required>
+                </div>
+                <div class="item_form">
+                    <label for="name_input" class="form_label">Name</label>
+                    <input type="text" class="form_control" id="name_input" required>
+                </div>
+                <div class="item_form">
+                    <label for="duration_input" class="form_label">Duration</label>
+                    <input type="number" class="form_control" id="duration_input">
+                </div>
+                <div class="item_form">
+                    <label for="price_input" class="form_label">Price</label>
+                    <input type="number" class="form_control" id="price_input">
+                </div>
+                <button id="submit_button" type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+            </form>
+
+
+            <h2>Manage vouchers</h2>
+            <div class="sort">
+                Sort by the price
+                <input type="checkbox" id="sort__checkbox">
+                </label>
+            </div>
+
+            <hr>
+
+            <div class="count">
+                <div>Total price of all your vouchers</div>
+                <button class="count__button" id="count__button" type="button">Count</button>
+                <div>
+                    Total price: <span id="total-price">0</span> euros.
+                </div>
+            </div>
+        </aside>
+
+        <div class="vertical__divider"></div>
+
+        <div>
+            <ul id="container__items"></ul>
+        </div>
+    </div>
+
+    <script type="module" src="./js/index.js"></script>
+</body>
+
+</html>
