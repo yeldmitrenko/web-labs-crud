@@ -1,4 +1,4 @@
-const VOUCHERS = [
+var VOUCHERS = [
     { id:1, country: "Dominican", name: "Impressive Resort & Spa", duration:12, price:500},
     { id:2, country: "Turkey", name: "Eftalia Splash Resort", duration:8, price:200},
     { id:3, country: "Cyprus", name: "Vergi Hotel", duration:7, price:1200},
@@ -15,3 +15,15 @@ const VOUCHERS = [
 export const getAllVouchers = () => {
     return VOUCHERS;
 };
+
+export const postVouchers = (body) => {
+    VOUCHERS.push(body);
+}
+
+export const updateVouchers = (id, body) => {
+    let index = VOUCHERS.findIndex(idx => idx.id == id);
+    VOUCHERS[index].country = body.country;
+    VOUCHERS[index].name = body.name;
+    VOUCHERS[index].duration = body.duration;
+    VOUCHERS[index].price = body.price;
+}

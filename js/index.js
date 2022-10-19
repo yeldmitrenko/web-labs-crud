@@ -1,5 +1,20 @@
-import { renderItemsList } from "./dom_util.js";
-import { getAllVouchers } from "./vouchers.js";
+import {
+    getInputValues,
+    renderItemsList,
+    EDIT_BUTTON_PREFIX,
+    DELETE_BUTTON_PREFIX,
+    clearInputs,
+} from "./dom_util.js";
+
+import { 
+    getAllVouchers, 
+    postVoucher, 
+    updateVoucher,
+    deleteVoucher,
+} from "./api.js";
+
+const formField = document.getElementById("item_form");
+const submitButton = document.getElementById("submit_button");
 
 const searchButton = document.getElementById("search__button");
 const clearSearchButton = document.getElementById("clear__search__button");
@@ -9,22 +24,59 @@ const countButton = document.getElementById("count__button");
 
 let vouchers = [];
 
-export const refetchAllVouchers = () => {
-    const allVouchers = getAllVouchers();
+const onEditItem = async (element) => {
+    const itemId = element.target.id.replace(EDIT_BUTTON_PREFIX, "");
 
-    vouchers = allVouchers.sort((a, b) => b.country.localeCompare(a.country));
+    await updateVoucher(itemId, getInputValues())
+    clearInputs();
 
-    renderItemsList(vouchers);
+    refetchAllVouchers();
 };
 
-searchButton.addEventListener("click", () => {
-    const foundVouchers = vouchers.filter((voucher) => voucher.country.search(searchInput.value) !== -1);
+const onRemoveItem = async (element) => {
+    const itemId = element.target.id.replace(DELETE_BUTTON_PREFIX, "");
 
-    renderItemsList(foundVouchers);
+    await deleteVoucher(itemId);
+
+    refetchAllVouchers(); 
+} 
+
+export const refetchAllVouchers = async () => {
+    const allVouchers = await getAllVouchers();
+    
+    vouchers = allVouchers.sort((a, b) => b.country.localeCompare(a.country));
+
+    renderItemsList(vouchers, onEditItem, onRemoveItem);
+};
+
+
+submitButton.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const { country, name, duration, price } = getInputValues();
+
+    clearInputs();
+
+    postVoucher({
+        country,
+        name, 
+        duration,
+        price,
+    }).then(refetchAllVouchers);
+
 });
 
+searchButton.addEventListener("click", () => {
+    const foundVouchers = vouchers.filter(
+        voucher => voucher.country.search(searchInput.value) !== -1
+    );
+
+    renderItemsList(foundVouchers, onEditItem, onRemoveItem);
+});
+
+
 clearSearchButton.addEventListener('click', () => {
-    renderItemsList(vouchers);
+    renderItemsList(vouchers, onEditItem, onRemoveItem);
 
     searchInput.value = "";
 });
@@ -34,7 +86,7 @@ sortCheckbox.addEventListener("change", function() {
         const sortedVouchers = vouchers.sort(
             (a, b) => parseInt(a.price) - parseInt(b.price));
         
-        renderItemsList(sortedVouchers);
+        renderItemsList(sortedVouchers, onEditItem, onRemoveItem);
     } else {
         refetchAllVouchers();
     }
