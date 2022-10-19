@@ -1,6 +1,7 @@
 # Lab №3. CRUD Javascript App: View Page
 
-## Description: In this work, you have to make a simple presentation part of a website - View Page.
+## Description: 
+In this work, you have to make a simple presentation part of a website - View Page.
 
 ### Requirements:
    - For your blocks you must use data from your java/python project class.
@@ -13,12 +14,13 @@
 
 
 # Lab 4. CRUD Javascript App: Create/Edit Pages
-
-## Description: In this work, you need to continue working and add two new 
+## Description: 
+In this work, you need to continue working and add two new 
 parts to your website - Create & Edit Pages (You can find the template of 
 these pages by following the link)
 Update/Delete operations are not required for this work!
-## Also you must validate the forms using HTML attributes (inputs must be 
+
+Also you must validate the forms using HTML attributes (inputs must be 
 configured for your data format).
 If incorrect data is entered in the inputs, you must use JavaScript to inform 
 the user with modal windows or just plain alert() function.
